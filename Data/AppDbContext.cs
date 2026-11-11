@@ -11,4 +11,5 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Tarea> Tareas { get; set; } = null!;
+    public DbSet<LibroRenta> Libros { get; set; } = null!;
 }

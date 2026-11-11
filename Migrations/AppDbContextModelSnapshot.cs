@@ -17,6 +17,45 @@ namespace GestorTareas.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
 
+            modelBuilder.Entity("GestorTareas.Models.LibroRenta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Autor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaDevolucion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaRenta")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Rentado")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RentadoPor")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Libros");
+                });
+
             modelBuilder.Entity("GestorTareas.Models.Tarea", b =>
                 {
                     b.Property<int>("Id")
