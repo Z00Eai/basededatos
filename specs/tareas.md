@@ -90,3 +90,28 @@ CA06: Al eliminar una tarea, desaparece del listado y de SQLite.
 CA07: Las tareas persisten al reiniciar la aplicación.
 
 CA08: No se puede modificar información mediante solicitudes GET.
+
+
+## 9. Cambio de especificación V2
+
+### RF05 - Fecha límite
+Cada tarea podrá tener una fecha límite.
+
+### Modificación del modelo
+Agregar a Tarea:
+- FechaLimite: DateTime?
+- Campo opcional.
+
+### Interfaz
+- Agregar Fecha límite al formulario.
+- Mostrar Fecha límite en el listado cuando esté definida.
+
+### Criterios de aceptación
+CA09: Se puede crear una tarea sin fecha límite.
+CA10: Se puede registrar una fecha límite.
+CA11: La fecha límite permanece almacenada después de reiniciar la aplicación.
+CA12: Las tareas anteriores siguen funcionando aunque no tengan fecha límite.
+
+### Persistencia
+Actualizar el esquema mediante una migración.
+No eliminar ni recrear la base de datos.

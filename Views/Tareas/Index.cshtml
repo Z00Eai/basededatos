@@ -15,6 +15,7 @@
             <tr>
                 <th>Título</th>
                 <th>Descripción</th>
+                <th>Fecha Límite</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -23,7 +24,7 @@
         @if (!Model.Any())
         {
             <tr>
-                <td colspan="4" class="text-center text-muted py-4">No hay tareas registradas.</td>
+                <td colspan="5" class="text-center text-muted py-4">No hay tareas registradas.</td>
             </tr>
         }
         else
@@ -33,6 +34,7 @@
                 <tr>
                     <td class="fw-bold">@item.Titulo</td>
                     <td>@(string.IsNullOrEmpty(item.Descripcion) ? "-" : item.Descripcion)</td>
+                    <td>@(item.FechaLimite.HasValue ? item.FechaLimite.Value.ToString("dd/MM/yyyy") : "-")</td>
                     <td>
                         @if (item.Completada)
                         {

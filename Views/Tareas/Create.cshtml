@@ -24,6 +24,12 @@
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
 
+            <div class="mb-3">
+                <label asp-for="FechaLimite" class="form-label">Fecha límite</label>
+                <input asp-for="FechaLimite" type="date" class="form-control" />
+                <span asp-validation-for="FechaLimite" class="text-danger"></span>
+            </div>
+
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <a asp-action="Index" class="btn btn-secondary">Cancelar</a>

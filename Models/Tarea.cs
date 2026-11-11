@@ -14,4 +14,7 @@ public class Tarea
     public string? Descripcion { get; set; }
 
     public bool Completada { get; set; } = false;
+
+    [DataType(DataType.Date)]
+    public DateTime? FechaLimite { get; set; }
 }

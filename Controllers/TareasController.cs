@@ -27,10 +27,10 @@ public class TareasController : Controller
         return View();
     }
 
-    // POST: Tareas/Create (RF02, CA02, CA03, CA04, CA08)
+    // POST: Tareas/Create (RF02, RF05, CA02, CA03, CA04, CA08, CA09, CA10)
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Titulo,Descripcion")] Tarea tarea)
+    public async Task<IActionResult> Create([Bind("Titulo,Descripcion,FechaLimite")] Tarea tarea)
     {
         if (ModelState.IsValid)
         {
