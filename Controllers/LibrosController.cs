@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using GestorTareas.Data;
 using GestorTareas.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GestorTareas.Controllers;
 
@@ -53,24 +55,30 @@ public class LibrosController : Controller
 
     // POST: Libros/Rentar/5
     [HttpPost]
+    [Authorize]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Rentar(int id, string rentadoPor)
+    public async Task<IActionResult> Rentar(int id, string? rentadoPor)
     {
         var libro = await _context.Libros.FindAsync(id);
         if (libro != null && !libro.Rentado)
         {
+            string nombreLector = !string.IsNullOrWhiteSpace(rentadoPor)
+                ? rentadoPor.Trim()
+                : (User.FindFirst(ClaimTypes.GivenName)?.Value ?? User.Identity?.Name ?? "Lector Registrado");
+
             libro.Rentado = true;
-            libro.RentadoPor = string.IsNullOrWhiteSpace(rentadoPor) ? "Lector Anónimo" : rentadoPor;
+            libro.RentadoPor = nombreLector;
             libro.FechaRenta = DateTime.Now;
             libro.FechaDevolucion = DateTime.Now.AddDays(7);
             await _context.SaveChangesAsync();
-            TempData["Mensaje"] = $"¡Has rentado '{libro.Titulo}' exitosamente! Devolución en 7 días.";
+            TempData["Mensaje"] = $"¡Has rentado '{libro.Titulo}' exitosamente! Devolución estimada en 7 días.";
         }
         return RedirectToAction(nameof(Index));
     }
 
     // POST: Libros/Devolver/5
     [HttpPost]
+    [Authorize]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Devolver(int id)
     {
@@ -88,7 +96,9 @@ public class LibrosController : Controller
     }
 
     // POST: Libros/Crear
+    // Solo el rol Administrador puede añadir nuevos libros al catálogo
     [HttpPost]
+    [Authorize(Roles = "Administrador")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Crear([Bind("Titulo,Autor,Genero")] LibroRenta libro)
     {
@@ -97,7 +107,7 @@ public class LibrosController : Controller
             libro.Rentado = false;
             _context.Libros.Add(libro);
             await _context.SaveChangesAsync();
-            TempData["Mensaje"] = $"Libro '{libro.Titulo}' añadido al catálogo.";
+            TempData["Mensaje"] = $"Libro '{libro.Titulo}' añadido al catálogo por el administrador.";
         }
         return RedirectToAction(nameof(Index));
     }

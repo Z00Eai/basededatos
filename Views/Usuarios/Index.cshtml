@@ -1,0 +1,128 @@
+@model IEnumerable<GestorTareas.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Gestión de Usuarios y Roles";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold mb-1">👥 Gestión de Usuarios y Roles</h2>
+        <p class="text-muted mb-0">Panel exclusivo para administradores del sistema.</p>
+    </div>
+    <button class="btn btn-primary rounded-pill px-4 shadow-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#modalNuevoUsuario">
+        + Nuevo Usuario
+    </button>
+</div>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+        <strong>✓ Éxito:</strong> @TempData["Mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show rounded-3 shadow-sm" role="alert">
+        <strong>✕ Atención:</strong> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th class="ps-4">ID</th>
+                    <th>Usuario (Login)</th>
+                    <th>Nombre Completo</th>
+                    <th>Rol Actual</th>
+                    <th>Fecha de Registro</th>
+                    <th class="text-end pe-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var u in Model)
+                {
+                    <tr>
+                        <td class="ps-4 text-muted">#@u.Id</td>
+                        <td class="fw-bold">@u.Username</td>
+                        <td>@u.NombreCompleto</td>
+                        <td>
+                            @if (u.Rol == "Administrador")
+                            {
+                                <span class="badge bg-danger px-3 py-2 rounded-pill">👑 Administrador</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary px-3 py-2 rounded-pill">👤 Usuario</span>
+                            }
+                        </td>
+                        <td class="text-muted small">@u.FechaRegistro.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="text-end pe-4">
+                            <div class="d-inline-flex gap-2">
+                                <form asp-action="CambiarRol" asp-route-id="@u.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill px-3" 
+                                            title="Alternar entre Administrador y Usuario">
+                                        Cambiar a @(u.Rol == "Administrador" ? "Usuario" : "Administrador")
+                                    </button>
+                                </form>
+
+                                <form asp-action="Eliminar" asp-route-id="@u.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                            onclick="return confirm('¿Seguro que deseas eliminar al usuario @u.Username?');">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL CREAR USUARIO DIRECTAMENTE COMO ADMIN -->
+<div class="modal fade" id="modalNuevoUsuario" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <form asp-action="Crear" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold">Crear Nuevo Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body py-3">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nombre de Usuario (Login)</label>
+                        <input type="text" name="username" class="form-control" placeholder="Ej. marcelo" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nombre Completo</label>
+                        <input type="text" name="nombreCompleto" class="form-control" placeholder="Ej. Marcelo Rojas" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Contraseña</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Asignar Rol</label>
+                        <select name="rol" class="form-select">
+                            <option value="Usuario">Usuario (Estándar)</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4">Guardar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

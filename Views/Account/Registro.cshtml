@@ -1,0 +1,80 @@
+@model GestorTareas.Models.RegistroViewModel
+
+@{
+    ViewData["Title"] = "Registro de Nuevo Usuario";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <span class="fs-1">✨</span>
+                    <h2 class="fw-bold mt-2">Crear Cuenta</h2>
+                    <p class="text-muted small">Regístrate como nuevo usuario en el sistema</p>
+                </div>
+
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+                        @Html.ValidationSummary(true, "", new { @class = "mb-0" })
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="Registro" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label fw-semibold">Nombre de Usuario (Login)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">👤</span>
+                            <input asp-for="Username" class="form-control" placeholder="Ej. juan123" autofocus />
+                        </div>
+                        <span asp-validation-for="Username" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NombreCompleto" class="form-label fw-semibold">Nombre Completo</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">🏷️</span>
+                            <input asp-for="NombreCompleto" class="form-control" placeholder="Ej. Juan Pérez García" />
+                        </div>
+                        <span asp-validation-for="NombreCompleto" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label fw-semibold">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">🔑</span>
+                            <input asp-for="Password" class="form-control" placeholder="Mínimo 6 caracteres" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ConfirmPassword" class="form-label fw-semibold">Confirmar Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">🔒</span>
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="Repite tu contraseña" />
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 rounded-pill fw-semibold shadow-sm mb-3">
+                        Registrarme
+                    </button>
+                </form>
+
+                <div class="text-center">
+                    <span class="text-muted small">¿Ya tienes cuenta? </span>
+                    <a asp-action="Login" class="fw-semibold text-decoration-none">Inicia sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

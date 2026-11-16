@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GestorTareas.Data;
@@ -5,6 +6,7 @@ using GestorTareas.Models;
 
 namespace GestorTareas.Controllers;
 
+[Authorize]
 public class TareasController : Controller
 {
     private readonly AppDbContext _context;
@@ -57,8 +59,10 @@ public class TareasController : Controller
     }
 
     // POST: Tareas/Eliminar/5 (RF04, CA06, CA08)
+    // Solo el rol Administrador puede eliminar tareas
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Eliminar(int id)
     {
         var tarea = await _context.Tareas.FindAsync(id);

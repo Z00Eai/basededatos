@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Unifranz 8\\BDS\\class\\GestorTareas\\GestorTareas.csproj": {}
+    "C:\\Users\\Unifranz\\Desktop\\BDS\\class\\GestorTareas\\GestorTareas.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Unifranz 8\\BDS\\class\\GestorTareas\\GestorTareas.csproj": {
+    "C:\\Users\\Unifranz\\Desktop\\BDS\\class\\GestorTareas\\GestorTareas.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Unifranz 8\\BDS\\class\\GestorTareas\\GestorTareas.csproj",
+        "projectUniqueName": "C:\\Users\\Unifranz\\Desktop\\BDS\\class\\GestorTareas\\GestorTareas.csproj",
         "projectName": "GestorTareas",
-        "projectPath": "C:\\Users\\Unifranz 8\\BDS\\class\\GestorTareas\\GestorTareas.csproj",
-        "packagesPath": "C:\\Users\\Unifranz 8\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Unifranz 8\\BDS\\class\\GestorTareas\\obj\\",
+        "projectPath": "C:\\Users\\Unifranz\\Desktop\\BDS\\class\\GestorTareas\\GestorTareas.csproj",
+        "packagesPath": "C:\\Users\\Unifranz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Unifranz\\Desktop\\BDS\\class\\GestorTareas\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Unifranz 8\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Unifranz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Acceso Denegado";
+}
+
+<div class="row justify-content-center my-5">
+    <div class="col-md-6 text-center">
+        <div class="card border-0 shadow-sm p-5 rounded-4">
+            <div class="mb-3">
+                <span class="display-1 text-danger">🚫</span>
+            </div>
+            <h2 class="fw-bold text-danger mb-3">Acceso Denegado</h2>
+            <p class="text-muted mb-4">
+                No tienes los permisos suficientes para acceder a esta sección. Esta funcionalidad está reservada exclusivamente para usuarios con rol de <strong>Administrador</strong>.
+            </p>
+            <div class="d-flex justify-content-center gap-2">
+                <a asp-controller="Libros" asp-action="Index" class="btn btn-outline-primary rounded-pill px-4">
+                    Ir al Catálogo de Libros
+                </a>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary rounded-pill px-4">
+                    Cambiar de Cuenta
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
